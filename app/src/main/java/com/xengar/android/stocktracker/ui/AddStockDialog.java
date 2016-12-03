@@ -60,10 +60,10 @@ public class AddStockDialog extends DialogFragment {
     private void addStock() {
         Activity parent = getActivity();
         if (parent instanceof MainActivity) {
+            // Add the stock, the check should happen when sync
             ((MainActivity) parent).addStock(stock.getText().toString());
         }
         dismissAllowingStateLoss();
     }
-
 
 }

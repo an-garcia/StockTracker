@@ -1,6 +1,9 @@
 package com.xengar.android.stocktracker.ui;
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -35,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements
         StockAdapter.StockAdapterOnClickHandler {
 
     private static final int STOCK_LOADER = 0;
+    private static final int IS_VALID_STOCK_LOADER = 1;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -45,6 +49,21 @@ public class MainActivity extends AppCompatActivity implements
     @BindView(R.id.error)
     TextView error;
     private StockAdapter adapter;
+
+    private boolean waitingStockCheck = false;
+    // Broadcast receiver for the invalid stock
+    private BroadcastReceiver stockCheckReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String symbol = intent.getStringExtra(Contract.Quote.COLUMN_SYMBOL);
+            Toast.makeText(getApplicationContext(),
+                    getString(R.string.error_stock_not_found, symbol),
+                    Toast.LENGTH_LONG).show();
+            // As it's invalid remove it from the preferences
+            PrefUtils.removeStock(context, symbol);
+        }
+    };
+
 
     @Override
     public void onClick(String symbol) {
@@ -83,10 +102,13 @@ public class MainActivity extends AppCompatActivity implements
                 getContentResolver().delete(Contract.Quote.makeUriForStock(symbol), null, null);
             }
         }).attachToRecyclerView(recyclerView);
-
-
     }
 
+    /**
+     * Checks if there is network connection.
+     *
+     * @return boolean
+     */
     private boolean networkUp() {
         ConnectivityManager cm =
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -120,6 +142,11 @@ public class MainActivity extends AppCompatActivity implements
         new AddStockDialog().show(getFragmentManager(), "StockDialogFragment");
     }
 
+    /**
+     * Adds the symbol to the preferences and calls for sync.
+     *
+     * @param symbol
+     */
     void addStock(String symbol) {
         if (symbol != null && !symbol.isEmpty()) {
 
@@ -132,9 +159,22 @@ public class MainActivity extends AppCompatActivity implements
 
             PrefUtils.addStock(this, symbol);
             QuoteSyncJob.syncImmediately(this);
+
+            // Register for receiving a message that the stock is invalid
+            IntentFilter filter = new IntentFilter();
+            filter.addAction(QuoteSyncJob.ACTION_INVALID_STOCK);
+            registerReceiver(stockCheckReceiver, filter);
+            waitingStockCheck = true;
         }
     }
 
+    /**
+     *  Instantiate and return a new Loader for the given ID.
+     *
+     * @param id
+     * @param args
+     * @return
+     */
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(this,
@@ -143,21 +183,43 @@ public class MainActivity extends AppCompatActivity implements
                 null, null, Contract.Quote.COLUMN_SYMBOL);
     }
 
+    /**
+     * Called when onCreateLoader(int, Bundle) has finished its load.
+     *
+     * @param loader
+     * @param data
+     */
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         swipeRefreshLayout.setRefreshing(false);
-
         if (data.getCount() != 0) {
             error.setVisibility(View.GONE);
         }
         adapter.setCursor(data);
+
+        // Unregister the stock check
+        if (waitingStockCheck) {
+            unregisterReceiver(stockCheckReceiver);
+            waitingStockCheck = false;
+        }
     }
 
-
+    /**
+     *  Called when a previously created loader in onCreateLoader(int, Bundle) is being reset,
+     *  thus making its data unavailable
+     *
+     * @param loader
+     */
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         swipeRefreshLayout.setRefreshing(false);
         adapter.setCursor(null);
+
+        // Unregister the stock check
+        if (waitingStockCheck) {
+            unregisterReceiver(stockCheckReceiver);
+            waitingStockCheck = false;
+        }
     }
 
 
@@ -190,4 +252,5 @@ public class MainActivity extends AppCompatActivity implements
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

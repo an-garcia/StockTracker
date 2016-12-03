@@ -4,6 +4,9 @@ package com.xengar.android.stocktracker.data;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
+/**
+ * Defines table and column names for the stocktracker database.
+ */
 public class Contract {
 
     public static final String AUTHORITY = "com.xengar.android.stocktracker";
@@ -13,6 +16,9 @@ public class Contract {
     public static final String PATH_QUOTE = "quote";
     public static final String PATH_QUOTE_WITH_SYMBOL = "quote/*";
 
+    /*
+     *  Inner class that defines the table contents of the quotes table
+     */
     public static final class Quote implements BaseColumns {
 
         public static final Uri uri = BASE_URI.buildUpon().appendPath(PATH_QUOTE).build();
@@ -24,7 +30,6 @@ public class Contract {
         public static final String COLUMN_ABSOLUTE_CHANGE = "absolute_change";
         public static final String COLUMN_PERCENTAGE_CHANGE = "percentage_change";
         public static final String COLUMN_HISTORY = "history";
-
 
         public static final int POSITION_ID = 0;
         public static final int POSITION_SYMBOL = 1;
@@ -50,7 +55,5 @@ public class Contract {
             return uri.getLastPathSegment();
         }
 
-
     }
-
 }

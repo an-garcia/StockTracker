@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.xengar.android.stocktracker">
 
+    <!-- Permissions -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.Manifest.permission.RECEIVE_BOOT_COMPLETED" />
@@ -22,15 +23,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service
-            android:name=".sync.QuoteIntentService"
-            android:exported="false" />
 
         <provider
             android:name=".data.StockProvider"
             android:authorities="com.xengar.android.stocktracker"
             android:exported="false" />
 
+        <!-- Service for Schedule intents -->
+        <service
+            android:name=".sync.QuoteIntentService"
+            android:exported="false" />
+
+        <!-- Service for Schedule jobs -->
         <service
             android:name=".sync.QuoteJobService"
             android:enabled="true"

@@ -15,6 +15,7 @@ public class StockProvider extends ContentProvider {
     static final int QUOTE = 100;
     static final int QUOTE_FOR_SYMBOL = 101;
 
+    // The URI Matcher used by this content provider.
     static UriMatcher uriMatcher = buildUriMatcher();
 
     private DbHelper dbHelper;
@@ -52,7 +53,6 @@ public class StockProvider extends ContentProvider {
                         sortOrder
                 );
                 break;
-
             case QUOTE_FOR_SYMBOL:
                 returnCursor = db.query(
                         Contract.Quote.TABLE_NAME,
@@ -104,8 +104,6 @@ public class StockProvider extends ContentProvider {
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
-
-
         return returnUri;
     }
 
@@ -122,9 +120,7 @@ public class StockProvider extends ContentProvider {
                         selection,
                         selectionArgs
                 );
-
                 break;
-
             case QUOTE_FOR_SYMBOL:
                 String symbol = Contract.Quote.getStockFromUri(uri);
                 rowsDeleted = db.delete(
