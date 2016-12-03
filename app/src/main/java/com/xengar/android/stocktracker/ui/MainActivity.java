@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements
         StockAdapter.StockAdapterOnClickHandler {
 
     private static final int STOCK_LOADER = 0;
-    private static final int IS_VALID_STOCK_LOADER = 1;
 
     @BindView(R.id.recycler_view)
     RecyclerView recyclerView;
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements
 
     @Override
     public void onClick(String symbol) {
-        Timber.d("Symbol clicked: %s", symbol);
+        Timber.d(getString(R.string.msg_symbol_clicked, symbol));
     }
 
     @Override
@@ -129,7 +128,7 @@ public class MainActivity extends AppCompatActivity implements
             swipeRefreshLayout.setRefreshing(false);
             Toast.makeText(this, R.string.toast_no_connectivity, Toast.LENGTH_LONG).show();
         } else if (PrefUtils.getStocks(this).size() == 0) {
-            Timber.d("WHYAREWEHERE");
+            Timber.d(getString(R.string.msg_panic));
             swipeRefreshLayout.setRefreshing(false);
             error.setText(getString(R.string.error_no_stocks));
             error.setVisibility(View.VISIBLE);
@@ -139,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     public void button(View view) {
-        new AddStockDialog().show(getFragmentManager(), "StockDialogFragment");
+        new AddStockDialog().show(getFragmentManager(), getString(R.string.dialog_class_name));
     }
 
     /**

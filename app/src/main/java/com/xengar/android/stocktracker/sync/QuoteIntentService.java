@@ -3,6 +3,8 @@ package com.xengar.android.stocktracker.sync;
 import android.app.IntentService;
 import android.content.Intent;
 
+import com.xengar.android.stocktracker.R;
+
 import timber.log.Timber;
 
 
@@ -19,7 +21,7 @@ public class QuoteIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Timber.d("Intent handled");
+        Timber.d(getApplicationContext().getString(R.string.msg_intent_handled));
         QuoteSyncJob.getQuotes(getApplicationContext());
     }
 }

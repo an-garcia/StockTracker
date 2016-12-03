@@ -11,6 +11,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 
+import com.xengar.android.stocktracker.R;
 import com.xengar.android.stocktracker.data.Contract;
 import com.xengar.android.stocktracker.data.PrefUtils;
 
@@ -30,13 +31,12 @@ import yahoofinance.histquotes.HistoricalQuote;
 import yahoofinance.histquotes.Interval;
 import yahoofinance.quotes.stock.StockQuote;
 
+
 public final class QuoteSyncJob {
 
     static final int ONE_OFF_ID = 2;
-    private static final String ACTION_DATA_UPDATED
-            = "com.xengar.android.stocktracker.ACTION_DATA_UPDATED";
-    public static final String ACTION_INVALID_STOCK
-            = "com.xengar.android.stocktracker.ACTION_INVALID_STOCK";
+    private static final String ACTION_DATA_UPDATED = "com.xengar.android.stocktracker.ACTION_DATA_UPDATED";
+    public static final String ACTION_INVALID_STOCK = "com.xengar.android.stocktracker.ACTION_INVALID_STOCK";
     private static final int PERIOD = 300000;
     private static final int INITIAL_BACKOFF = 10000;
     private static final int PERIODIC_ID = 1;
@@ -49,7 +49,7 @@ public final class QuoteSyncJob {
      */
     static void getQuotes(Context context) {
 
-        Timber.d("Running sync job");
+        Timber.d(context.getString(R.string.msg_runnig_sync_job));
 
         Calendar from = Calendar.getInstance();
         Calendar to = Calendar.getInstance();
@@ -77,7 +77,7 @@ public final class QuoteSyncJob {
                 Stock stock = quotes.get(symbol);
                 if (stock == null || stock.getName() == null){
                     // This is an invalid stock. Inform it
-                    Timber.d("Error fetching stock " + symbol);
+                    Timber.d(context.getString(R.string.error_stock_not_found, symbol));
                     Intent stockCheckIntent = new Intent(ACTION_INVALID_STOCK);
                     stockCheckIntent.putExtra(Contract.Quote.COLUMN_SYMBOL, symbol);
                     context.sendBroadcast(stockCheckIntent);
@@ -95,9 +95,9 @@ public final class QuoteSyncJob {
                 StringBuilder historyBuilder = new StringBuilder();
                 for (HistoricalQuote it : history) {
                     historyBuilder.append(it.getDate().getTimeInMillis());
-                    historyBuilder.append(", ");
+                    historyBuilder.append(context.getString(R.string.symbol_comma));
                     historyBuilder.append(it.getClose());
-                    historyBuilder.append("\n");
+                    historyBuilder.append(context.getString(R.string.symbol_new_line));
                 }
 
                 ContentValues quoteCV = new ContentValues();
@@ -119,7 +119,7 @@ public final class QuoteSyncJob {
             context.sendBroadcast(dataUpdatedIntent);
 
         } catch (IOException exception) {
-            Timber.e(exception, "Error fetching stock quotes");
+            Timber.e(exception, context.getString(R.string.error_fetching));
         }
     }
 
@@ -131,7 +131,7 @@ public final class QuoteSyncJob {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private static void schedulePeriodic(Context context) {
-        Timber.d("Scheduling a periodic task");
+        Timber.d(context.getString(R.string.msg_scheduling_periodic_task));
         JobInfo.Builder builder = new JobInfo.Builder(PERIODIC_ID, new ComponentName(context, QuoteJobService.class));
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
                 .setPeriodic(PERIOD)

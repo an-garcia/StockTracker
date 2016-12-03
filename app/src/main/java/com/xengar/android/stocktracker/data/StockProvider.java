@@ -9,6 +9,8 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.xengar.android.stocktracker.R;
+
 
 public class StockProvider extends ContentProvider {
 
@@ -63,14 +65,12 @@ public class StockProvider extends ContentProvider {
                         null,
                         sortOrder
                 );
-
                 break;
             default:
-                throw new UnsupportedOperationException("Unknown URI:" + uri);
+                throw new UnsupportedOperationException(getContext().getString(R.string.error_unknown_uri) + uri);
         }
 
         returnCursor.setNotificationUri(getContext().getContentResolver(), uri);
-
 //        if (db.isOpen()) {
 //            db.close();
 //        }
@@ -100,7 +100,7 @@ public class StockProvider extends ContentProvider {
                 returnUri = Contract.Quote.uri;
                 break;
             default:
-                throw new UnsupportedOperationException("Unknown URI:" + uri);
+                throw new UnsupportedOperationException(getContext().getString(R.string.error_unknown_uri) + uri);
         }
 
         getContext().getContentResolver().notifyChange(uri, null);
@@ -130,7 +130,7 @@ public class StockProvider extends ContentProvider {
                 );
                 break;
             default:
-                throw new UnsupportedOperationException("Unknown URI:" + uri);
+                throw new UnsupportedOperationException(getContext().getString(R.string.error_unknown_uri) + uri);
         }
 
         if (rowsDeleted != 0) {
@@ -170,7 +170,5 @@ public class StockProvider extends ContentProvider {
             default:
                 return super.bulkInsert(uri, values);
         }
-
-
     }
 }
