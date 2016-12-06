@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
-
-    <TextView
-        android:id="@+id/symbol"
-        style="@style/StockSymbolTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="left|center_vertical"
-        tools:text="GOOG" />
+    android:layout_height="wrap_content"
+    android:background="@drawable/touch_selector"
+    android:paddingLeft="@dimen/list_item_extra_padding"
+    android:paddingRight="@dimen/list_item_extra_padding"
+    >
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="right">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
+        android:paddingRight="@dimen/abc_list_item_padding_horizontal_material">
 
         <TextView
-            android:id="@+id/price"
-            style="@style/BidPriceTextStyle"
+            android:id="@+id/symbol"
+            style="@style/StockSymbolTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10sp"
-            tools:text="1000.00" />
+            android:gravity="left|center_vertical"
+            tools:text="GOOG" />
 
-        <TextView
-            android:id="@+id/change"
-            style="@style/PercentChangeTextStyle"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/percent_change_pill_green"
-            android:paddingLeft="3dp"
-            android:paddingRight="3dp"
-            tools:text="100%" />
+            android:layout_weight="1"
+            android:gravity="right">
+
+            <TextView
+                android:id="@+id/price"
+                style="@style/BidPriceTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10sp"
+                tools:text="1000.00" />
+
+            <TextView
+                android:id="@+id/change"
+                style="@style/PercentChangeTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/percent_change_pill_green"
+                tools:text="100%" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

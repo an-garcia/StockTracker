@@ -7,7 +7,8 @@
     <color name="colorAccent">#B2DFDB</color>  <!-- 100 -->
     <color name="primary_text">#212121</color>
 
-
+    <!-- the activated state color -->
+    <color name="activated">#E0E0E0</color>
 
     <color name="material_blue_700">#1976D2</color>
     <color name="material_blue_500">#2196F3</color>
