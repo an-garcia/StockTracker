@@ -37,6 +37,9 @@
     <string name="error_fetching">Error fetching stock quotes.</string>
     <string name="error_unknown_uri">Unknown URI: </string>
 
+    <!-- Empty Weather Database -->
+    <string name="empty_stock_list">No Stocks Information Available</string>
+
     <string name="prefix_dollar" translatable="false">+$</string>
     <string name="prefix_positive" translatable="false">+</string>
     <string name="symbol_comma" translatable="false">, </string>
