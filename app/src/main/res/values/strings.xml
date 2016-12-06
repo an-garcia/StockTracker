@@ -2,6 +2,7 @@
     xmlns:xliff="http://schemas.android.com/apk/res-auto">
 
     <string name="app_name">Stock Tracker</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 
     <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
 
