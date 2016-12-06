@@ -18,7 +18,9 @@ import com.xengar.android.stocktracker.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-
+/**
+ * Add the stock dialog
+ */
 public class AddStockDialog extends DialogFragment {
 
     @BindView(R.id.dialog_stock)

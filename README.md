@@ -4,9 +4,8 @@ Stock Tracker
 ![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1480816607.png)
 ![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1480816645.png)
 
-StockTracker is the companion Android app for monitoring stock markets.
-This app is based on [StockHawk](https://github.com/udacity/StockHawk).
 Synchronizes stock information on Android Phones and Tablets.
+Based on [StockHawk](https://github.com/udacity/StockHawk).
 
 
 Pre-requisites
