@@ -16,8 +16,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -239,6 +237,7 @@ public class StockFragment extends Fragment implements
         }
     }
 
+    /*
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.main_activity_settings, menu);
@@ -258,6 +257,6 @@ public class StockFragment extends Fragment implements
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
 }
