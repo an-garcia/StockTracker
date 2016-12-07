@@ -100,7 +100,8 @@ public class StockFragment extends Fragment implements
         swipeRefreshLayout.setRefreshing(true);
         //onRefresh();
 
-        QuoteSyncJob.initialize(mContext);
+        long syncPeriod =  PrefUtils.getSyncFrequency(mContext);
+        QuoteSyncJob.initialize(mContext, syncPeriod);
         getLoaderManager().initLoader(STOCK_LOADER, null, this);
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {

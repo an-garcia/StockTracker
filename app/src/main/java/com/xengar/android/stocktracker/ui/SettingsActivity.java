@@ -36,6 +36,7 @@ import com.xengar.android.stocktracker.data.PrefUtils;
 import java.util.List;
 
 import static com.xengar.android.stocktracker.R.string.pref_key_percentage_units;
+import static com.xengar.android.stocktracker.R.string.pref_key_sync_frequency;
 
 /**
  * Auto-generated code!
@@ -303,7 +304,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity
             // updated to reflect the new value, per the Android Design
             // guidelines.
             bindPreferenceSummaryToValue(findPreference(getString(pref_key_percentage_units)));
-            bindPreferenceSummaryToValue(findPreference("sync_frequency"));
+            bindPreferenceSummaryToValue(findPreference(getString(pref_key_sync_frequency)));
         }
 
         @Override

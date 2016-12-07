@@ -37,7 +37,6 @@ public final class QuoteSyncJob {
     static final int ONE_OFF_ID = 2;
     private static final String ACTION_DATA_UPDATED = "com.xengar.android.stocktracker.ACTION_DATA_UPDATED";
     public static final String ACTION_INVALID_STOCK = "com.xengar.android.stocktracker.ACTION_INVALID_STOCK";
-    private static final int PERIOD = 300000;
     private static final int INITIAL_BACKOFF = 10000;
     private static final int PERIODIC_ID = 1;
 
@@ -124,17 +123,18 @@ public final class QuoteSyncJob {
     }
 
 
-    synchronized public static void initialize(final Context context) {
-        schedulePeriodic(context);
+    synchronized public static void initialize(final Context context, long syncPeriod) {
+        schedulePeriodic(context, syncPeriod);
         syncImmediately(context);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private static void schedulePeriodic(Context context) {
+    private static void schedulePeriodic(Context context, long syncPeriod) {
         Timber.d(context.getString(R.string.msg_scheduling_periodic_task));
+
         JobInfo.Builder builder = new JobInfo.Builder(PERIODIC_ID, new ComponentName(context, QuoteJobService.class));
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)
-                .setPeriodic(PERIOD)
+                .setPeriodic(syncPeriod)
                 .setBackoffCriteria(INITIAL_BACKOFF, JobInfo.BACKOFF_POLICY_EXPONENTIAL);
 
         JobScheduler scheduler = (JobScheduler) context.getSystemService(Context.JOB_SCHEDULER_SERVICE);

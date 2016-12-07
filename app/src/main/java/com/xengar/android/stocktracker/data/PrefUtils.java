@@ -12,6 +12,9 @@ import java.util.Set;
 
 public final class PrefUtils {
 
+    // Default sync period
+    private static final int PERIOD = 300000; // 5 minutes
+
     private PrefUtils() {
     }
 
@@ -61,6 +64,12 @@ public final class PrefUtils {
         editStockPref(context, symbol, false);
     }
 
+    /**
+     * Returns the display mode ["absolute" | "percentage"] from preferences.
+     *
+     * @param context
+     * @return
+     */
     public static String getDisplayMode(Context context) {
         String key = context.getString(R.string.pref_display_mode_key);
         String defaultValue = context.getString(R.string.pref_display_mode_default);
@@ -68,15 +77,32 @@ public final class PrefUtils {
         return prefs.getString(key, defaultValue);
     }
 
+    /**
+     * Returns the sync frequency from preferences.
+     *
+     * @param context
+     * @return
+     */
+    public static long getSyncFrequency(Context context) {
+        String key = context.getString(R.string.pref_key_sync_frequency);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String data = prefs.getString(key, null);
+        long value = (data != null)? Long.parseLong(data) : PERIOD;
+        return value;
+    }
+
+    /**
+     * Changes between the display modes ["absolute" | "percentage"] as binary.
+     *
+     * @param context
+     */
     public static void toggleDisplayMode(Context context) {
         String key = context.getString(R.string.pref_display_mode_key);
         String absoluteKey = context.getString(R.string.pref_display_mode_absolute_key);
         String percentageKey = context.getString(R.string.pref_display_mode_percentage_key);
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-
         String displayMode = getDisplayMode(context);
-
         SharedPreferences.Editor editor = prefs.edit();
 
         if (displayMode.equals(absoluteKey)) {
