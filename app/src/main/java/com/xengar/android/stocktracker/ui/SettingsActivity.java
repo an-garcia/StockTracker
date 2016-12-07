@@ -4,22 +4,22 @@ package com.xengar.android.stocktracker.ui;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
+import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
+import android.preference.SwitchPreference;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -31,8 +31,11 @@ import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.xengar.android.stocktracker.R;
+import com.xengar.android.stocktracker.data.PrefUtils;
 
 import java.util.List;
+
+import static com.xengar.android.stocktracker.R.string.pref_key_percentage_units;
 
 /**
  * Auto-generated code!
@@ -46,7 +49,8 @@ import java.util.List;
  * href="http://developer.android.com/guide/topics/ui/settings.html">Settings
  * API Guide</a> for more information on developing a Settings UI.
  */
-public class SettingsActivity extends AppCompatPreferenceActivity {
+public class SettingsActivity extends AppCompatPreferenceActivity
+        implements SharedPreferences.OnSharedPreferenceChangeListener{
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -69,28 +73,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                         ? listPreference.getEntries()[index]
                                         : null);
 
-                    } else if (preference instanceof RingtonePreference) {
-                        // For ringtone preferences, look up the correct display value
-                        // using RingtoneManager.
-                        if (TextUtils.isEmpty(stringValue)) {
-                            // Empty values correspond to 'silent' (no ringtone).
-                            preference.setSummary(R.string.pref_ringtone_silent);
-
-                        } else {
-                            Ringtone ringtone = RingtoneManager.getRingtone(
-                                    preference.getContext(), Uri.parse(stringValue));
-
-                            if (ringtone == null) {
-                                // Clear the summary if there was a lookup error.
-                                preference.setSummary(null);
-                            } else {
-                                // Set the summary to reflect the new ringtone display
-                                // name.
-                                String name = ringtone.getTitle(preference.getContext());
-                                preference.setSummary(name);
-                            }
-                        }
-
+                    } else if (preference instanceof SwitchPreference) {
+                        // For a boolean value, set the default value
+                        Boolean boolValue = (stringValue.contains("t"))? true : false;
+                        preference.setDefaultValue(boolValue);
                     } else {
                         // For all other preferences, set the summary to the value's
                         // simple string representation.
@@ -127,18 +113,28 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         // Set the listener to watch for value changes.
         preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
 
-        // Trigger the listener immediately with the preference's
-        // current value.
-        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                PreferenceManager
-                        .getDefaultSharedPreferences(preference.getContext())
-                        .getString(preference.getKey(), ""));
+        // Trigger the listener immediately with the preference's current value.
+        if (preference instanceof ListPreference
+                || preference instanceof EditTextPreference) {
+            sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
+                    PreferenceManager
+                            .getDefaultSharedPreferences(preference.getContext())
+                            .getString(preference.getKey(), ""));
+        }
+        else if (preference instanceof SwitchPreference
+                || preference instanceof CheckBoxPreference) {
+            sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
+                    PreferenceManager
+                            .getDefaultSharedPreferences(preference.getContext())
+                            .getBoolean(preference.getKey(),true));
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupActionBar();
+        setupToolBar();
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -153,8 +149,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // Show the Up button in the action bar.
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
 
-        // Add a toolbar
+    /**
+     * Set up the {@link android.support.v7.widget.Toolbar}, if the API is available.
+     */
+    private void setupToolBar() {
         Toolbar toolbar;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
@@ -218,8 +218,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName);
-                /*|| DataSyncPreferenceFragment.class.getName().equals(fragmentName)
-                || NotificationPreferenceFragment.class.getName().equals(fragmentName) */
     }
 
     /**
@@ -258,6 +256,35 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         client.disconnect();
     }
 
+    // Registers a shared preference change listener that gets notified when preferences change
+    @Override
+    protected void onResume() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        sp.registerOnSharedPreferenceChangeListener(this);
+        super.onResume();
+    }
+
+    // Unregisters a shared preference change listener
+    @Override
+    protected void onPause() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        sp.unregisterOnSharedPreferenceChangeListener(this);
+        super.onPause();
+    }
+
+    /**
+     * Called after a preference changes
+     * @param sharedPreferences
+     * @param key
+     */
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if ( key.equals(getString(pref_key_percentage_units)) ) {
+            // percentage units have changed. Update the units preference accordingly
+            PrefUtils.toggleDisplayMode(this);
+        }
+    }
+
 
     /**
      * This fragment shows general preferences only. It is used when the
@@ -275,9 +302,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("example_text"));
-            bindPreferenceSummaryToValue(findPreference("example_list"));
-            bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
+            bindPreferenceSummaryToValue(findPreference(getString(pref_key_percentage_units)));
             bindPreferenceSummaryToValue(findPreference("sync_frequency"));
         }
 

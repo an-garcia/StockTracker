@@ -16,7 +16,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -31,7 +30,8 @@ import com.xengar.android.stocktracker.sync.QuoteSyncJob;
 import timber.log.Timber;
 
 /**
- * Encapsulates fetching the stocks and displaying it as a {@link android.support.v7.widget.RecyclerView} layout.
+ * Encapsulates fetching the stocks and displaying it as a
+ * {@link android.support.v7.widget.RecyclerView} layout.
  */
 public class StockFragment extends Fragment implements
         LoaderManager.LoaderCallbacks<Cursor>,
@@ -114,7 +114,8 @@ public class StockFragment extends Fragment implements
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
                 String symbol = adapter.getSymbolAtPosition(viewHolder.getAdapterPosition());
                 PrefUtils.removeStock(getActivity(), symbol);
-                mContext.getContentResolver().delete(Contract.Quote.makeUriForStock(symbol), null, null);
+                mContext.getContentResolver().delete(Contract.Quote.makeUriForStock(symbol), null,
+                        null);
             }
         }).attachToRecyclerView(mRecyclerView);
 
@@ -227,36 +228,5 @@ public class StockFragment extends Fragment implements
     public void onClick(String symbol) {
         Timber.d(getString(R.string.msg_symbol_clicked, symbol));
     }
-
-    private void setDisplayModeMenuItemIcon(MenuItem item) {
-        if (PrefUtils.getDisplayMode(getActivity())
-                .equals(getString(R.string.pref_display_mode_absolute_key))) {
-            item.setIcon(R.drawable.ic_percentage);
-        } else {
-            item.setIcon(R.drawable.ic_dollar);
-        }
-    }
-
-    /*
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.main_activity_settings, menu);
-
-        MenuItem item = menu.findItem(R.id.action_change_units);
-        setDisplayModeMenuItemIcon(item);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.action_change_units) {
-            PrefUtils.toggleDisplayMode(getActivity());
-            setDisplayModeMenuItemIcon(item);
-            adapter.notifyDataSetChanged();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 
 }
