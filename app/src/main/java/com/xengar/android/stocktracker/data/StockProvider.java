@@ -92,12 +92,16 @@ public class StockProvider extends ContentProvider {
 
         switch (uriMatcher.match(uri)) {
             case QUOTE:
-                db.insert(
+                // Inserts the values into the table and return the id of the row in the uri
+                long _id = db.insert(
                         Contract.Quote.TABLE_NAME,
                         null,
                         values
                 );
-                returnUri = Contract.Quote.uri;
+                if ( _id > 0 )
+                    returnUri = Contract.Quote.buildQuoteUri(_id);
+                else
+                    throw new android.database.SQLException(getContext().getString(R.string.error_failed_insert_row) + uri);
                 break;
             default:
                 throw new UnsupportedOperationException(getContext().getString(R.string.error_unknown_uri) + uri);
@@ -141,7 +145,27 @@ public class StockProvider extends ContentProvider {
 
     @Override
     public int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
-        return 0;
+        final SQLiteDatabase db = dbHelper.getWritableDatabase();
+        final int match = uriMatcher.match(uri);
+        int rowsUpdated;
+
+        switch (match) {
+            case QUOTE:
+                rowsUpdated = db.update(Contract.Quote.TABLE_NAME, values, selection, selectionArgs);
+                break;
+            case QUOTE_FOR_SYMBOL:
+                String symbol = Contract.Quote.getStockFromUri(uri);
+                rowsUpdated = db.update(Contract.Quote.TABLE_NAME, values,
+                        '"' + symbol + '"' + " =" + Contract.Quote.COLUMN_SYMBOL,
+                        selectionArgs);
+                break;
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+        if (rowsUpdated != 0) {
+            getContext().getContentResolver().notifyChange(uri, null);
+        }
+        return rowsUpdated;
     }
 
     @Override
@@ -155,11 +179,10 @@ public class StockProvider extends ContentProvider {
                 int returnCount = 0;
                 try {
                     for (ContentValues value : values) {
-                        db.insert(
-                                Contract.Quote.TABLE_NAME,
-                                null,
-                                value
-                        );
+                        long _id = db.insert(Contract.Quote.TABLE_NAME, null, value);
+                        if (_id != -1) {
+                            returnCount++;
+                        }
                     }
                     db.setTransactionSuccessful();
                 } finally {

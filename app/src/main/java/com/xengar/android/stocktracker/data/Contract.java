@@ -1,6 +1,7 @@
 package com.xengar.android.stocktracker.data;
 
 
+import android.content.ContentUris;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
@@ -46,6 +47,11 @@ public class Contract {
                 COLUMN_PERCENTAGE_CHANGE,
                 COLUMN_HISTORY
         };
+
+        // Build a quote uri with the id of the quote
+        public static Uri buildQuoteUri(long id) {
+            return ContentUris.withAppendedId(uri, id);
+        }
 
         public static Uri makeUriForStock(String symbol) {
             return uri.buildUpon().appendPath(symbol).build();

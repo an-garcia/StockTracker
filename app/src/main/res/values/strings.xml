@@ -41,6 +41,7 @@
     <string name="error_no_stocks">No stocks added! Hit the floating action button to add one.</string>
     <string name="error_fetching">Error fetching stock quotes.</string>
     <string name="error_unknown_uri">Unknown URI: </string>
+    <string name="error_failed_insert_row">Failed to insert row into URI: </string>
 
     <!-- Empty Weather Database -->
     <string name="empty_stock_list">No Stocks Information Available</string>
