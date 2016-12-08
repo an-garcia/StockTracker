@@ -11,12 +11,12 @@ import com.xengar.android.stocktracker.data.Contract.Quote;
  */
 public class DbHelper extends SQLiteOpenHelper {
 
-    static final String NAME = "StockTracker.db";
+    static final String DATABASE_NAME = "StockTracker.db";
     // If you change the database schema, you must increment the database version.
     private static final int VERSION = 1;
 
     public DbHelper(Context context) {
-        super(context, NAME, null, VERSION);
+        super(context, DATABASE_NAME, null, VERSION);
     }
 
     @Override
