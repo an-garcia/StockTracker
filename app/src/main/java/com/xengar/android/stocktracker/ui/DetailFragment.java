@@ -2,9 +2,11 @@ package com.xengar.android.stocktracker.ui;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -16,8 +18,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.TextView;
 
 import com.xengar.android.stocktracker.R;
+import com.xengar.android.stocktracker.Utility;
+import com.xengar.android.stocktracker.data.Contract;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -25,9 +30,35 @@ import com.xengar.android.stocktracker.R;
 public class DetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private static final String LOG_TAG = DetailFragment.class.getSimpleName();
+    static final String DETAIL_URI = "URI";
 
     private static final String STOCK_SHARE_HASHTAG = " #StockTrackerApp";
     private String mForecast;
+    private Uri mUri;
+
+    private static final int DETAIL_LOADER = 0;
+
+    private static final String[] DETAIL_COLUMNS = {
+            Contract.Quote.TABLE_NAME + "." + Contract.Quote._ID,
+            Contract.Quote.COLUMN_SYMBOL,
+            Contract.Quote.COLUMN_PRICE,
+            Contract.Quote.COLUMN_ABSOLUTE_CHANGE,
+            Contract.Quote.COLUMN_PERCENTAGE_CHANGE,
+            Contract.Quote.COLUMN_HISTORY
+    };
+    // These indices are tied to DETAIL_COLUMNS.  If DETAIL_COLUMNS changes, these must change.
+    public static final int COL_QUOTE_ID = 0;
+    public static final int COL_QUOTE_SYMBOL = 1;
+    public static final int COL_QUOTE_PRICE = 2;
+    public static final int COL_QUOTE_ABSOLUTE_CHANGE = 3;
+    public static final int COL_QUOTE_PERCENTAGE_CHANGE = 4;
+    public static final int COL_QUOTE_HISTORY = 5;
+
+    // View elements
+    private TextView mSymbolView;
+    private TextView mPriceView;
+    private TextView mChangeView;
+
 
     public DetailFragment() {
         setHasOptionsMenu(true);
@@ -38,7 +69,13 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
                              Bundle savedInstanceState) {
 
         Bundle arguments = getArguments();
+        if (arguments != null) {
+            mUri = arguments.getParcelable(DetailFragment.DETAIL_URI);
+        }
         View rootView = inflater.inflate(R.layout.fragment_detail_start, container, false);
+        mSymbolView = (TextView) rootView.findViewById(R.id.detail_symbol_textview);
+        mPriceView = (TextView) rootView.findViewById(R.id.detail_price_textview);
+        mChangeView = (TextView) rootView.findViewById(R.id.detail_change_textview);
 
         return rootView;
     }
@@ -59,7 +96,7 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
-        //getLoaderManager().initLoader(DETAIL_LOADER, null, this);
+        getLoaderManager().initLoader(DETAIL_LOADER, null, this);
         super.onActivityCreated(savedInstanceState);
     }
 
@@ -72,9 +109,28 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
         }
     }
 
+    void onQuoteChanged(String newStock) {
+        // replace the uri, since the stock has changed
+        if (null != mUri) {
+            mUri = Contract.Quote.makeUriForStock(newStock);
+            getLoaderManager().restartLoader(DETAIL_LOADER, null, this);
+        }
+    }
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-
+        if ( null != mUri ) {
+            // Now create and return a CursorLoader that will take care of
+            // creating a Cursor for the data being displayed.
+            return new CursorLoader(
+                    getActivity(),
+                    mUri,
+                    DETAIL_COLUMNS,
+                    null,
+                    null,
+                    null
+            );
+        }
         ViewParent vp = getView().getParent();
         if ( vp instanceof CardView ) {
             ((View)vp).setVisibility(View.INVISIBLE);
@@ -84,12 +140,26 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // TODO: Add stock query info
-        ViewParent vp = getView().getParent();
-        if ( vp instanceof CardView ) {
-            ((View)vp).setVisibility(View.VISIBLE);
-        }
+        if (data != null && data.moveToFirst()) {
+            ViewParent vp = getView().getParent();
+            if ( vp instanceof CardView ) {
+                ((View)vp).setVisibility(View.VISIBLE);
+            }
 
+            // Read data fom the cursor and display it
+            String symbol = data.getString(COL_QUOTE_SYMBOL);
+            float price = data.getFloat(COL_QUOTE_PRICE);
+            float absoluteChange = data.getFloat(COL_QUOTE_ABSOLUTE_CHANGE);
+            float percentageChange = data.getFloat(COL_QUOTE_PERCENTAGE_CHANGE);
+            String history = data.getString(COL_QUOTE_HISTORY);
+            // TODO: Use history data
+
+            // Display the data
+            mSymbolView.setText(symbol);
+            mPriceView.setText(Utility.getPriceInDisplayMode(price));
+            mChangeView.setText(
+                    Utility.getChangeInDisplayMode(getContext(), absoluteChange, percentageChange));
+        }
 
         AppCompatActivity activity = (AppCompatActivity)getActivity();
         Toolbar toolbarView = (Toolbar) getView().findViewById(R.id.toolbar);
@@ -102,7 +172,5 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-
-    }
+    public void onLoaderReset(Loader<Cursor> loader) { }
 }

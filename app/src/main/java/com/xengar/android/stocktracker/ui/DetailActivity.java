@@ -17,7 +17,7 @@ public class DetailActivity extends AppCompatActivity {
             // using a fragment transaction.
 
             Bundle arguments = new Bundle();
-            //arguments.putParcelable(DetailFragment.DETAIL_URI, getIntent().getData());
+            arguments.putParcelable(DetailFragment.DETAIL_URI, getIntent().getData());
             //arguments.putBoolean(DetailFragment.DETAIL_TRANSITION_ANIMATION, true);
 
             DetailFragment fragment = new DetailFragment();
@@ -28,7 +28,7 @@ public class DetailActivity extends AppCompatActivity {
                     .commit();
 
             // Being here means we are in animation mode
-            supportPostponeEnterTransition();
+            //supportPostponeEnterTransition();
         }
     }
 

@@ -32,11 +32,11 @@
     app:columnCount="2">
 
     <TextView
-        android:id="@+id/detail_humidity_label_textview"
+        android:id="@+id/detail_symbol_label_textview"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
         android:gravity="center_vertical"
-        android:text="@string/pref_stocks_key"
+        android:text="@string/symbol"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/detail_accent_label"
         app:layout_columnWeight="1"
@@ -44,7 +44,7 @@
         app:layout_rowWeight="1" />
 
     <TextView
-        android:id="@+id/detail_humidity_textview"
+        android:id="@+id/detail_symbol_textview"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="@android:color/white"
@@ -52,17 +52,17 @@
         tools:text="38%" />
 
     <TextView
-        android:id="@+id/detail_pressure_label_textview"
+        android:id="@+id/detail_price_label_textview"
         android:fontFamily="sans-serif"
         android:gravity="center_vertical"
-        android:text="@string/pref_stocks_key"
+        android:text="@string/price"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textColor="@color/detail_accent_label"
         app:layout_gravity="fill"
         app:layout_rowWeight="1" />
 
     <TextView
-        android:id="@+id/detail_pressure_textview"
+        android:id="@+id/detail_price_textview"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="@android:color/white"
@@ -70,10 +70,10 @@
         tools:text="995 hPa" />
 
     <TextView
-        android:id="@+id/detail_wind_label_textview"
+        android:id="@+id/detail_change_label_textview"
         android:fontFamily="sans-serif"
         android:gravity="center_vertical"
-        android:text="@string/pref_stocks_key"
+        android:text="@string/change"
         android:textColor="@color/detail_accent_label"
         android:textSize="20sp"
         app:layout_gravity="fill"
@@ -81,7 +81,7 @@
 
 
     <TextView
-        android:id="@+id/detail_wind_textview"
+        android:id="@+id/detail_change_textview"
         android:gravity="center_vertical"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="@android:color/white"
