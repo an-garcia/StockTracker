@@ -6,6 +6,10 @@
          typically from the action bar.  The ActionBar is limited real estate, so shorter is better.
     -->
     <string name="action_settings">Settings</string>
+    <string name="action_share">Share</string>
+
+    <string name="title_activity_detail">Details</string>
+    <string name="title_activity_settings">Settings</string>
 
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 
@@ -59,7 +63,6 @@
     <string name="msg_runnig_sync_job" translatable="false">Running sync job</string>
     <string name="msg_scheduling_periodic_task" translatable="false">Scheduling a periodic task</string>
     <string name="msg_symbol_clicked" translatable="false">Symbol clicked: (<xliff:g id="symbol">%s</xliff:g>)</string>
-    <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
 

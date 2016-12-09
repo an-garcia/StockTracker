@@ -53,6 +53,10 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.1'
     compile 'com.android.support:recyclerview-v7:25.0.1'
     compile 'com.android.support:design:25.0.1'
+    // NOTE: Since version 25.0.0 there are errors in the detail view.
+    // Didn't find class "android.support.v7.widget.Space" on path: DexPathList
+    compile 'com.android.support:gridlayout-v7:24.2.1'
+    compile 'com.android.support:cardview-v7:25.0.1'
     compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.google.guava:guava:20.0'
     compile 'com.squareup.okio:okio:1.11.0'

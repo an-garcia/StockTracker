@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -53,8 +54,10 @@ public class MainActivity extends AppCompatActivity implements StockFragment.Cal
     }
 
     @Override
-    public void onItemSelected(Uri dateUri, StockAdapter.StockViewHolder vh) {
-        // TODO: Change into detail view
+    public void onItemSelected(Uri contentUri, StockAdapter.StockViewHolder vh) {
+        Intent intent = new Intent(this, DetailActivity.class)
+                .setData(contentUri);
+        ActivityCompat.startActivity(this, intent, null);
     }
 
     @Override

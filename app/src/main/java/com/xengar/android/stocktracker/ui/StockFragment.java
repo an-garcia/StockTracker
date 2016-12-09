@@ -73,7 +73,7 @@ public class StockFragment extends Fragment implements
         /**
          * DetailFragmentCallback for when an item has been selected.
          */
-        public void onItemSelected(Uri dateUri, StockAdapter.StockViewHolder vh);
+        public void onItemSelected(Uri contentUri, StockAdapter.StockViewHolder vh);
     }
 
     public StockFragment() {
@@ -90,9 +90,16 @@ public class StockFragment extends Fragment implements
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         error = (TextView) rootView.findViewById(R.id.error);
         // Set the layout manager
-        adapter = new StockAdapter(mContext, this);
+        adapter = new StockAdapter(mContext, new StockAdapter.StockAdapterOnClickHandler() {
+            @Override
+            public void onClick(String symbol, StockAdapter.StockViewHolder vh) {
+                ((Callback) getActivity())
+                        .onItemSelected(Contract.Quote.makeUriForStock(symbol), vh);
+                mPosition = vh.getAdapterPosition();
+            }
+        });
         mRecyclerView.setAdapter(adapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
         swipeRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_refresh);
@@ -226,7 +233,7 @@ public class StockFragment extends Fragment implements
     }
 
     @Override
-    public void onClick(String symbol) {
+    public void onClick(String symbol, StockAdapter.StockViewHolder vh) {
         Timber.d(getString(R.string.msg_symbol_clicked, symbol));
     }
 
