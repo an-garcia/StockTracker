@@ -68,4 +68,5 @@ public class Utility {
         dollarFormat = (DecimalFormat) NumberFormat.getCurrencyInstance(Locale.US);
         return dollarFormat.format(rawPrice);
     }
+
 }

@@ -24,6 +24,12 @@ import com.xengar.android.stocktracker.R;
 import com.xengar.android.stocktracker.Utility;
 import com.xengar.android.stocktracker.data.Contract;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
 /**
  * A placeholder fragment containing a simple view.
  */
@@ -152,7 +158,8 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
             float absoluteChange = data.getFloat(COL_QUOTE_ABSOLUTE_CHANGE);
             float percentageChange = data.getFloat(COL_QUOTE_PERCENTAGE_CHANGE);
             String history = data.getString(COL_QUOTE_HISTORY);
-            // TODO: Use history data
+
+            List<HistoricalPrice> historicalPrices = parseStockHistory(history);
 
             // Display the data
             mSymbolView.setText(symbol);
@@ -173,4 +180,53 @@ public class DetailFragment extends Fragment implements LoaderManager.LoaderCall
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) { }
+
+
+    // Represents a Time and Price for a stock
+    private class HistoricalPrice{
+        private String date;
+        private float price;
+
+        public String getDate() { return date; }
+        public void setDate(String date) { this.date = date; }
+        public float getPrice() { return price; }
+        public void setPrice(float price) { this.price = price; }
+
+        public HistoricalPrice(String date, float price){
+            this.date = date;
+            this.price = price;
+        }
+    }
+
+    /**
+     * Returns a list of historical prices.
+     *
+     * @param history The format is "1480917600000, 20.455\n" for each quote with timeinMilliseconds
+     * @return
+     */
+    private List<HistoricalPrice> parseStockHistory(String history) {
+        List<HistoricalPrice> quotes = new ArrayList<>();
+
+        String lineStr[] = history.split("\\r\\n|\\n|\\r");
+        for(String str: lineStr){
+            String itemStr[] = str.split(",");
+            String date = getCalenderFromString(itemStr[0]);
+            float price = Float.valueOf(itemStr[1]);
+            // Add in reverse order because the dates are inverted
+            quotes.add(0, new HistoricalPrice(date, price) );
+        }
+        return quotes;
+    }
+
+    // Get date string from Milliseconds.
+    private String getCalenderFromString(String dateInMillis){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        //Date date = new Date(dateInMillis);
+        // Create a calendar object that will convert the date and time value in milliseconds to date.
+        long milliSeconds = Long.parseLong(dateInMillis);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(milliSeconds);
+        String dateString = formatter.format(calendar.getTime());
+        return dateString;
+    }
 }
