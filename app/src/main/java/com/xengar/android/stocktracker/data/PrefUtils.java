@@ -23,6 +23,7 @@ import com.xengar.android.stocktracker.R;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 public final class PrefUtils {
@@ -52,7 +53,19 @@ public final class PrefUtils {
             return defaultStocks;
         }
         return prefs.getStringSet(stocksKey, new HashSet<String>());
+    }
 
+    // Returns the first stock in the preferences.
+    public static String getFirstStock(Context context){
+        Set<String> stocks = getStocks(context);
+        if (!stocks.isEmpty()){
+            Iterator<String> iterator = stocks.iterator();
+            if (iterator.hasNext()) {
+                String symbol = iterator.next();
+                return symbol;
+            }
+        }
+        return null;
     }
 
     public static void editStockPref(Context context, String symbol, Boolean add) {

@@ -28,6 +28,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.xengar.android.stocktracker.R;
+import com.xengar.android.stocktracker.data.Contract;
+import com.xengar.android.stocktracker.data.PrefUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,21 +56,26 @@ public class MainActivity extends AppCompatActivity implements StockFragment.Cal
             // (res/layout-sw600dp). If this view is present, then the activity should be
             // in two-pane mode.
             mTwoPane = true;
-            // In two-pane mode, show the detail view in this activity by
-            // adding or replacing the detail fragment using a
-            // fragment transaction.
             if (savedInstanceState == null) {
+                DetailFragment fragment = new DetailFragment();
+                String symbol = PrefUtils.getFirstStock(getApplicationContext());
+                if (symbol != null ) {
+                    // Display the fist symbol in the preferences.
+                    Uri contentUri = Contract.Quote.makeUriForStock(symbol);
+                    Bundle args = new Bundle();
+                    args.putParcelable(DetailFragment.DETAIL_URI, contentUri);
+                    fragment.setArguments(args);
+                }
+                // In two-pane mode, show the detail view in this activity by adding or replacing
+                // the detail fragment using a fragment transaction.
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.stock_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
+                        .replace(R.id.stock_detail_container, fragment, DETAILFRAGMENT_TAG)
                         .commit();
             }
         }  else {
             mTwoPane = false;
             getSupportActionBar().setElevation(0f);
         }
-
-        StockFragment stockFragment =  ((StockFragment)getSupportFragmentManager()
-                .findFragmentById(R.id.fragment_stock));
     }
 
     public void button(View view) {
