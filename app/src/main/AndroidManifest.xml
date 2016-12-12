@@ -38,7 +38,7 @@
             android:name=".ui.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".ui.MainActivity"
-            android:theme="@style/SettingsTheme" >
+            android:theme="@style/AppTheme.Settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.xengar.android.stocktracker.ui.MainActivity" />

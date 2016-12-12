@@ -24,8 +24,7 @@
     </style>
 
     <!-- Settings activity theme. -->
-    <style name="SettingsTheme" parent="AppTheme">
-    </style>
+    <style name="AppTheme.Settings" parent="@style/AppTheme"/>
 
     <style name="AppTheme.Main" parent="@style/AppTheme"/>
 
@@ -53,6 +52,12 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/primary_text</item>
         <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <!-- Style for stock listview -->
+    <style name="StockListStyle">
+        <!-- Here it's a stub.  In screens of sufficient width, this style includes modifications
+        for two-pane layout -->
     </style>
 
 </resources>

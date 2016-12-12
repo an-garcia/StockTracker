@@ -46,7 +46,7 @@
         android:layout_weight="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="@android:color/white"
-        tools:text="38%" />
+        tools:text="VOO" />
 
     <TextView
         android:id="@+id/detail_price_label_textview"
@@ -65,7 +65,7 @@
         android:layout_weight="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="@android:color/white"
-        tools:text="995 hPa" />
+        tools:text="$ 20.76" />
 
     <TextView
         android:id="@+id/detail_change_label_textview"
@@ -84,5 +84,5 @@
         android:layout_weight="1"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="@android:color/white"
-        tools:text="4km/h NW" />
+        tools:text="+0.95%" />
 </LinearLayout>

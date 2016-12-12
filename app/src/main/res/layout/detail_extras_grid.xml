@@ -49,7 +49,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="@android:color/white"
         app:layout_gravity="fill"
-        tools:text="38%" />
+        tools:text="VOO" />
 
     <TextView
         android:id="@+id/detail_price_label_textview"
@@ -67,7 +67,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="@android:color/white"
         app:layout_gravity="fill"
-        tools:text="995 hPa" />
+        tools:text="$ 23.70" />
 
     <TextView
         android:id="@+id/detail_change_label_textview"
@@ -86,5 +86,5 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textColor="@android:color/white"
         app:layout_gravity="fill"
-        tools:text="4km/h NW" />
+        tools:text="+0.95%" />
 </android.support.v7.widget.GridLayout>

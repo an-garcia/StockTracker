@@ -34,8 +34,10 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements StockFragment.Callback {
 
+    private static final String DETAILFRAGMENT_TAG = "DFTAG";
     @BindView(R.id.fab)
     FloatingActionButton fab;
+    private boolean mTwoPane;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +48,24 @@ public class MainActivity extends AppCompatActivity implements StockFragment.Cal
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         ButterKnife.bind(this);
+
+        if (findViewById(R.id.stock_detail_container) != null) {
+            // The detail container view will be present only in the large-screen layouts
+            // (res/layout-sw600dp). If this view is present, then the activity should be
+            // in two-pane mode.
+            mTwoPane = true;
+            // In two-pane mode, show the detail view in this activity by
+            // adding or replacing the detail fragment using a
+            // fragment transaction.
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.stock_detail_container, new DetailFragment(), DETAILFRAGMENT_TAG)
+                        .commit();
+            }
+        }  else {
+            mTwoPane = false;
+            getSupportActionBar().setElevation(0f);
+        }
 
         StockFragment stockFragment =  ((StockFragment)getSupportFragmentManager()
                 .findFragmentById(R.id.fragment_stock));
@@ -70,9 +90,24 @@ public class MainActivity extends AppCompatActivity implements StockFragment.Cal
 
     @Override
     public void onItemSelected(Uri contentUri, StockAdapter.StockViewHolder vh) {
-        Intent intent = new Intent(this, DetailActivity.class)
-                .setData(contentUri);
-        ActivityCompat.startActivity(this, intent, null);
+        if (mTwoPane) {
+            // In two-pane mode, show the detail view in this activity by
+            // adding or replacing the detail fragment using a
+            // fragment transaction.
+            Bundle args = new Bundle();
+            args.putParcelable(DetailFragment.DETAIL_URI, contentUri);
+
+            DetailFragment fragment = new DetailFragment();
+            fragment.setArguments(args);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.stock_detail_container, fragment, DETAILFRAGMENT_TAG)
+                    .commit();
+        } else {
+            Intent intent = new Intent(this, DetailActivity.class)
+                    .setData(contentUri);
+            ActivityCompat.startActivity(this, intent, null);
+        }
     }
 
     @Override
