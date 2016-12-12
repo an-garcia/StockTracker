@@ -34,7 +34,7 @@
         android:background="@color/colorPrimary" />
 
     <ImageView
-        android:id="@+id/sunshine_logo_imageview"
+        android:id="@+id/stocktracker_logo_imageview"
         android:layout_width="match_parent"
         android:layout_height="?attr/listPreferredItemHeight"
         android:layout_below="@+id/toolbar"
@@ -51,7 +51,7 @@
     <View
         android:elevation="@dimen/appbar_elevation"
         android:background="@color/colorPrimary"
-        android:layout_below="@id/sunshine_logo_imageview"
+        android:layout_below="@id/stocktracker_logo_imageview"
         android:layout_width="match_parent"
         android:layout_height="@dimen/details_app_bar_overlap" />
 
@@ -59,7 +59,7 @@
         android:id="@+id/stock_detail_container"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_below="@id/sunshine_logo_imageview"
+        android:layout_below="@id/stocktracker_logo_imageview"
         android:layout_marginLeft="@dimen/abc_list_item_padding_horizontal_material"
         android:layout_marginRight="@dimen/abc_list_item_padding_horizontal_material"
         app:cardElevation="@dimen/detail_card_elevation"

@@ -43,7 +43,7 @@
              keyline correctly, since we cannot do addition of
              dimensions/attributes otherwise -->
         <android.support.v4.widget.Space
-            android:id="@+id/sunshineLogoAlign"
+            android:id="@+id/stocktrackerLogoAlign"
             android:layout_width="@dimen/list_icon"
             android:layout_height="0dp"
             android:layout_marginLeft="@dimen/abc_list_item_padding_horizontal_material"
@@ -55,10 +55,10 @@
             android:layout_width="wrap_content"
             android:layout_height="?attr/listPreferredItemHeight"
             android:layout_gravity="center_vertical"
-            android:layout_below="@id/sunshineLogoAlign"
+            android:layout_below="@id/stocktrackerLogoAlign"
             android:layout_marginLeft="@dimen/abc_list_item_padding_horizontal_material"
             android:layout_marginStart="@dimen/abc_list_item_padding_horizontal_material"
-            android:layout_toRightOf="@id/sunshineLogoAlign"
+            android:layout_toRightOf="@id/stocktrackerLogoAlign"
             android:src="@drawable/ic_logo"
             android:contentDescription="@string/app_name"/>
     </RelativeLayout>
