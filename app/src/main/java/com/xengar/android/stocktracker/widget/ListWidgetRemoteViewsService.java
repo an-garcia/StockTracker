@@ -109,7 +109,7 @@ public class ListWidgetRemoteViewsService extends RemoteViewsService {
                                 getApplicationContext(), absoluteChange, percentageChange));
 
                 final Intent fillInIntent = new Intent();
-                fillInIntent.setData(Contract.Quote.uri);
+                fillInIntent.setData(Contract.Quote.makeUriForStock(symbol));
                 views.setOnClickFillInIntent(R.id.widget_list_item, fillInIntent);
                 return views;
             }
