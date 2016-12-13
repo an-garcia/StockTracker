@@ -60,6 +60,25 @@
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <!-- List of stocks Widget -->
+        <receiver
+            android:name=".widget.ListWidgetProvider"
+            android:label="@string/title_widget_list"
+            android:enabled="@bool/widget_list_enabled" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.xengar.android.stocktracker.ACTION_DATA_UPDATED" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/widget_info_list" />
+        </receiver>
+        <service
+            android:name=".widget.ListWidgetRemoteViewsService"
+            android:enabled="@bool/widget_list_enabled"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for
             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.

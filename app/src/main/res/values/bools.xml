@@ -15,5 +15,6 @@
      limitations under the License.
  -->
 <resources>
-    <bool name="widget_list_enabled">true</bool>
+    <bool name="widget_list_enabled">false</bool>
+    <bool name="use_detail_activity">true</bool>
 </resources>

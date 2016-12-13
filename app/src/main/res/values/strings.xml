@@ -83,6 +83,8 @@
     <string name="msg_scheduling_periodic_task" translatable="false">Scheduling a periodic task</string>
     <string name="msg_symbol_clicked" translatable="false">Symbol clicked: (<xliff:g id="symbol">%s</xliff:g>)</string>
 
+    <string name="title_widget_list">StockTracker List</string>
+    
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
