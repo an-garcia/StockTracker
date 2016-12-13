@@ -3,7 +3,7 @@ Stock Tracker
 
 ![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1480816607.png)
 ![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1481406578.png)
-![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1481657660.png)
+![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1481661113.png)
 ![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1481656375.png)
 ![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1481656355.png)
 
