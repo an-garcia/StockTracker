@@ -33,7 +33,9 @@ import com.xengar.android.stocktracker.data.Contract;
  */
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public class ListWidgetRemoteViewsService extends RemoteViewsService {
+
     public final String LOG_TAG = ListWidgetRemoteViewsService.class.getSimpleName();
+
     private static final String[] QUOTE_COLUMNS = {
             Contract.Quote.TABLE_NAME + "." + Contract.Quote._ID,
             Contract.Quote.COLUMN_SYMBOL,
@@ -108,6 +110,16 @@ public class ListWidgetRemoteViewsService extends RemoteViewsService {
                 views.setTextViewText(R.id.widget_change, Utility.getChangeInDisplayMode(
                                 getApplicationContext(), absoluteChange, percentageChange));
 
+                // Set red rectangle for negative values, green otherwise
+                if (absoluteChange > 0) {
+                    views.setInt(R.id.widget_change, "setBackgroundResource",
+                            R.drawable.percent_change_pill_green);
+                } else {
+                    views.setInt(R.id.widget_change, "setBackgroundResource",
+                            R.drawable.percent_change_pill_red);
+                }
+
+                // Create the intent in case of click on the item
                 final Intent fillInIntent = new Intent();
                 fillInIntent.setData(Contract.Quote.makeUriForStock(symbol));
                 views.setOnClickFillInIntent(R.id.widget_list_item, fillInIntent);
