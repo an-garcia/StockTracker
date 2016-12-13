@@ -2,8 +2,10 @@ Stock Tracker
 ========
 
 ![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1480816607.png)
-![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1480816645.png)
 ![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1481406578.png)
+![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1481657660.png)
+![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1481656375.png)
+![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1481656355.png)
 
 Synchronizes stock information on Android Phones and Tablets.
 Based on [StockHawk](https://github.com/udacity/StockHawk).
@@ -12,14 +14,8 @@ Based on [StockHawk](https://github.com/udacity/StockHawk).
 Pre-requisites
 --------------
 - Android SDK 25 or Higher
-- Google Play Services GCM 10.0.1
-
-
-### Google Play Services
-
-Note about google-services.json - To avoid seeing the error "GoogleService failed to initialize, status: 10" you should create a google-services.json file.
-You can generate one [here](https://developers.google.com/mobile/add?platform=android)
-
+- YahooFinanceAPI 3.5.0
+- MPAndroidChart v3.0.1
 
 
 License
