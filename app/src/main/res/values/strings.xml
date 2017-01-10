@@ -67,7 +67,7 @@
     <string name="error_failed_insert_row">Failed to insert row into URI: </string>
 
     <!-- Empty Weather Database -->
-    <string name="empty_stock_list">No Stocks Information Available</string>
+    <string name="empty_stock_list">No Stock Information Available</string>
 
     <string name="prefix_dollar" translatable="false">+$</string>
     <string name="prefix_positive" translatable="false">+</string>
