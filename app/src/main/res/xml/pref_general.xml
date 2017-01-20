@@ -17,10 +17,10 @@
 
     <PreferenceCategory
         android:title="@string/pref_header_general"
-        android:key="pref_key_storage_settings_general"
-        android:icon="@drawable/ic_info_black_24dp">
+        android:key="pref_key_storage_settings_general">
 
         <SwitchPreference
+            android:icon="@drawable/ic_attach_money_black_24dp"
             android:defaultValue="true"
             android:key="@string/pref_key_percentage_units"
             android:summary="@string/pref_description_percentage_units"
@@ -31,13 +31,13 @@
 
     <PreferenceCategory
         android:title="@string/pref_header_data_sync"
-        android:key="pref_key_storage_settings_data_sync"
-        android:icon="@drawable/ic_sync_black_24dp">
+        android:key="pref_key_storage_settings_data_sync">
 
         <!-- NOTE: Hide buttons to simplify the UI. Users can touch outside the dialog to
          dismiss it. -->
         <!-- NOTE: ListPreference's summary should be set to its value by the activity code. -->
         <ListPreference
+            android:icon="@drawable/ic_sync_black_24dp"
             android:defaultValue="300000"
             android:entries="@array/pref_sync_frequency_titles"
             android:entryValues="@array/pref_sync_frequency_values"
