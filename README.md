@@ -1,11 +1,11 @@
 Stock Tracker
 ========
 
-![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1480816607.png)
-![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1481406578.png)
-![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1481661113.png)
-![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1481656375.png)
-![alt tag](https://github.com/an-garcia/StockTracker/blob/master/readmeImages/Screenshot_1481656355.png)
+![Scheme](/readmeImages/Screenshot_1480816607.png)
+![Scheme](/readmeImages/Screenshot_1481406578.png)
+![Scheme](/readmeImages/Screenshot_1481661113.png)
+![Scheme](/readmeImages/Screenshot_1481656375.png)
+![Scheme](/readmeImages/Screenshot_1481656355.png)
 
 Synchronizes stock information on Android Phones and Tablets.
 Based on [StockHawk](https://github.com/udacity/StockHawk).

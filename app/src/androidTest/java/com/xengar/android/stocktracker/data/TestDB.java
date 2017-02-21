@@ -105,7 +105,6 @@ public class TestDB {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
 
         // Step 2: Create ContentValues of what you want to insert
-        // (you can use the createNorthPoleLocationValues if you wish)
         ContentValues testValues = TestUtilities.createBerkshireHathawayIncQuoteValues();
 
         // Step 3: Insert ContentValues into database and get a row ID back
@@ -135,8 +134,6 @@ public class TestDB {
         assertTrue( "Error: No Records returned from location query", cursor.moveToFirst() );
 
         // Step 5: Validate data in resulting Cursor with the original ContentValues
-        // (you can use the validateCurrentRecord function in TestUtilities to validate the
-        // query if you like)
         TestUtilities.validateCurrentRecord("Error: Location Query Validation Failed",
                 cursor, testValues);
 
