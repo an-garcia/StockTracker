@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2016 Angel Garcia
+     Copyright (C) 2017 Angel Garcia
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -19,9 +19,10 @@
 
     <!-- Using the "Teal" Material Palette
          https://material.google.com/style/color.html#color-color-palette -->
-    <color name="colorPrimary">#009688</color>  <!-- 500 -->
-    <color name="colorPrimaryDark">#00796B</color>  <!-- 700 -->
-    <color name="colorAccent">#B2DFDB</color>  <!-- 100 -->
+    <color name="colorPrimary">#FF3F51B5</color>  <!-- 500 -->
+    <color name="colorPrimaryDark">#FF303F9F</color>  <!-- 700 -->
+    <color name="colorPrimaryLight">#FF2196F3</color>  <!-- 500 -->
+    <color name="colorAccent">#FFC5CAE9</color>  <!-- 100 -->
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
 

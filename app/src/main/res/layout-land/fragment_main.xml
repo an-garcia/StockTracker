@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2016 Angel Garcia
+     Copyright (C) 2017 Angel Garcia
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -19,12 +19,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:id="@+id/parallax_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="?attr/colorPrimary"
+        android:background="@drawable/side_nav_bar"
         android:elevation="@dimen/appbar_elevation"
         android:orientation="vertical">
         <android.support.v7.widget.Toolbar
@@ -34,36 +35,18 @@
             android:elevation="0dp"
             app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-        <android.support.v4.widget.Space
-            android:layout_width="match_parent"
-            android:layout_height="?attr/listPreferredItemHeight"/>
     </LinearLayout>
+
     <include layout="@layout/fragment_main_base"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_height="match_parent"
-        android:layout_width="@dimen/landscape_forecast_view_width"
-        />
+        android:layout_width="@dimen/landscape_forecast_view_width" />
 
     <!-- Other views -->
-    <Space
+    <View
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|right"
-        android:onClick="button"
-        android:src="@drawable/fab_plus"
-        app:backgroundTint="@color/colorPrimary"
-        app:borderWidth="0dp"
-        app:elevation="6dp"
-        app:fabSize="normal"
-        app:pressedTranslationZ="12dp"
-        android:layout_margin="16dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
 </RelativeLayout>

@@ -19,7 +19,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -31,14 +30,11 @@ import com.xengar.android.stocktracker.R;
 import com.xengar.android.stocktracker.data.Contract;
 import com.xengar.android.stocktracker.data.PrefUtils;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements StockFragment.Callback {
 
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
     private boolean mTwoPane;
 
     @Override
@@ -119,8 +115,8 @@ public class MainActivity extends AppCompatActivity implements StockFragment.Cal
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main_activity_settings, menu);
+        // Inflate the main; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -132,13 +128,19 @@ public class MainActivity extends AppCompatActivity implements StockFragment.Cal
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            intent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, SettingsActivity.GeneralPreferenceFragment.class.getName() );
-            intent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
-            intent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT_TITLE, R.string.action_settings);
-            startActivity(intent);
+        switch (id) {
+            case R.id.action_settings:
+                Intent intent = new Intent(this, SettingsActivity.class);
+                intent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT,
+                        SettingsActivity.GeneralPreferenceFragment.class.getName() );
+                intent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
+                intent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT_TITLE, R.string.action_settings);
+                startActivity(intent);
             return true;
+
+            case R.id.action_add:
+                new AddStockDialog().show(getFragmentManager(), getString(R.string.dialog_class_name));
+                break;
         }
 
         return super.onOptionsItemSelected(item);

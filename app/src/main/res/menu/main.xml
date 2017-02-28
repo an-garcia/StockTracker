@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-     Copyright (C) 2016 Angel Garcia
+     Copyright (C) 2017 Angel Garcia
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -19,15 +19,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/action_add"
+        android:title="@string/action_add"
+        android:icon="@drawable/fab_plus"
+        android:orderInCategory="100"
+        app:showAsAction="ifRoom|collapseActionView" />
+
+    <item
         android:id="@+id/action_settings"
         android:title="@string/action_settings"
         android:orderInCategory="100"
         app:showAsAction="never" />
-    <!--<item-->
-        <!--android:id="@+id/action_change_units"-->
-        <!--android:icon="@drawable/ic_dollar"-->
-        <!--android:orderInCategory="99"-->
-        <!--android:title="@string/action_change_units"-->
-        <!--app:showAsAction="never" />-->
 
 </menu>

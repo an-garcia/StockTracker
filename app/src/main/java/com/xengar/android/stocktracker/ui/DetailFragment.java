@@ -128,7 +128,7 @@ public class DetailFragment extends Fragment implements
     }
 
     private void finishCreatingMenu(Menu menu) {
-        // Retrieve the share menu item
+        // Retrieve the share main item
         MenuItem menuItem = menu.findItem(R.id.action_share);
         menuItem.setIntent(createQuoteHistoryIntent());
     }
@@ -150,7 +150,7 @@ public class DetailFragment extends Fragment implements
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         if ( getActivity() instanceof DetailActivity ){
-            // Inflate the menu; this adds items to the action bar if it is present.
+            // Inflate the main; this adds items to the action bar if it is present.
             inflater.inflate(R.menu.detailfragment, menu);
             finishCreatingMenu(menu);
         }

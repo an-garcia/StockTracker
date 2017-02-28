@@ -1,5 +1,5 @@
 <!--
-     Copyright (C) 2016 Angel Garcia
+     Copyright (C) 2017 Angel Garcia
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -20,40 +20,17 @@
          By convention, "action" denotes that this String will be used as the label for an Action,
          typically from the action bar.  The ActionBar is limited real estate, so shorter is better.
     -->
+    <string name="action_add">Add</string>
     <string name="action_settings">Settings</string>
     <string name="action_share">Share</string>
-
     <string name="title_activity_detail">Details</string>
     <string name="title_activity_settings">Settings</string>
     <string name="symbol">Stock</string>
     <string name="price">Price</string>
     <string name="change">Change</string>
-
-
-    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
-
-    <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
-
     <string name="pref_stocks_key">stocks</string>
-
     <string name="chart_no_data">No data</string>
-
     <string name="pref_display_mode_title">Display Mode</string>
-    <string name="pref_display_mode_key" translatable="false">displayMode</string>
-    <string name="pref_display_mode_default" translatable="false">@string/pref_display_mode_percentage_key</string>
-
-    <string name="pref_display_mode_absolute_key" translatable="false">absolute</string>
-    <string name="pref_display_mode_percentage_key" translatable="false">percentage</string>
-
-    <string name="default_stocks_yahoo" translatable="false">YHOO</string>
-    <string name="default_stocks_apple" translatable="false">AAPL</string>
-    <string name="default_stocks_microsoft" translatable="false">MSFT</string>
-    <string name="default_stocks_facebook" translatable="false">FB</string>
-
-
-    <string name="action_change_units" translatable="false">@string/pref_display_mode_key</string>
-
-    <string name="dialog_class_name" translatable="false">StockDialogFragment</string>
     <string name="dialog_title">Add Stock</string>
     <string name="dialog_hint">Symbol (e.g. GOOG)</string>
     <string name="dialog_cancel">Cancel</string>
@@ -66,32 +43,42 @@
     <string name="error_unknown_uri">Unknown URI: </string>
     <string name="error_failed_insert_row">Failed to insert row into URI: </string>
 
-    <!-- Empty Weather Database -->
     <string name="empty_stock_list">No Stock Information Available</string>
+    <string name="toast_stock_added_no_connectivity">Symbol (<xliff:g id="symbol">%s</xliff:g>) added. Will refresh when network available.</string>
+    <string name="toast_no_connectivity">Will refresh when network available.</string>
+    <string name="title_widget_list">StockTracker List</string>
 
+
+    <!-- Non translatables -->
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
+    <string name="pref_display_mode_key" translatable="false">displayMode</string>
+    <string name="pref_display_mode_default" translatable="false">@string/pref_display_mode_percentage_key</string>
+    <string name="pref_display_mode_absolute_key" translatable="false">absolute</string>
+    <string name="pref_display_mode_percentage_key" translatable="false">percentage</string>
+    <string name="default_stocks_yahoo" translatable="false">YHOO</string>
+    <string name="default_stocks_apple" translatable="false">AAPL</string>
+    <string name="default_stocks_microsoft" translatable="false">MSFT</string>
+    <string name="default_stocks_facebook" translatable="false">FB</string>
+    <string name="action_change_units" translatable="false">@string/pref_display_mode_key</string>
+    <string name="dialog_class_name" translatable="false">StockDialogFragment</string>
     <string name="prefix_dollar" translatable="false">+$</string>
     <string name="prefix_positive" translatable="false">+</string>
     <string name="symbol_comma" translatable="false">, </string>
     <string name="symbol_new_line" translatable="false">\n</string>
-
-    <string name="toast_stock_added_no_connectivity">Symbol (<xliff:g id="symbol">%s</xliff:g>) added. Will refresh when network available.</string>
-    <string name="toast_no_connectivity">Will refresh when network available.</string>
-
     <string name="msg_intent_handled" translatable="false">Intent handled</string>
     <string name="msg_panic" translatable="false">WHYAREWEHERE</string>
     <string name="msg_runnig_sync_job" translatable="false">Running sync job</string>
     <string name="msg_scheduling_periodic_task" translatable="false">Scheduling a periodic task</string>
     <string name="msg_symbol_clicked" translatable="false">Symbol clicked: (<xliff:g id="symbol">%s</xliff:g>)</string>
 
-    <string name="title_widget_list">StockTracker List</string>
-    
+
+
     <!-- Strings related to Settings -->
-
-    <!-- Example General settings -->
-    <string name="pref_header_general">General</string>
-
     <string name="pref_key_percentage_units" translatable="false">Percentage_units</string>
     <string name="pref_key_sync_frequency" translatable="false">sync_frequency</string>
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
     <string name="pref_title_percentage_units">Percentage units</string>
     <string name="pref_description_percentage_units">Use percentages in stock quotes</string>
 
