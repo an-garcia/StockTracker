@@ -17,6 +17,7 @@ package com.xengar.android.stocktracker.ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.xengar.android.stocktracker.R;
 
@@ -45,6 +46,7 @@ public class DetailActivity extends AppCompatActivity {
             // Being here means we are in animation mode
             //supportPostponeEnterTransition();
         }
+
     }
 
 }
