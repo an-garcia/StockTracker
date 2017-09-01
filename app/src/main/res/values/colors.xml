@@ -22,7 +22,7 @@
     <color name="colorPrimary">#FF3F51B5</color>  <!-- 500 -->
     <color name="colorPrimaryDark">#FF303F9F</color>  <!-- 700 -->
     <color name="colorPrimaryLight">#FF2196F3</color>  <!-- 500 -->
-    <color name="colorAccent">#FFC5CAE9</color>  <!-- 100 -->
+    <color name="colorAccent">#F44336</color>
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#727272</color>
 
