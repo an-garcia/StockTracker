@@ -30,16 +30,12 @@ import android.widget.TextView;
 
 import com.xengar.android.stocktracker.R;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 /**
  * Add the stock dialog
  */
 public class AddStockDialog extends DialogFragment {
 
-    @BindView(R.id.dialog_stock)
-    EditText stock;
+    private EditText stock;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -49,7 +45,7 @@ public class AddStockDialog extends DialogFragment {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View custom = inflater.inflate(R.layout.add_stock_dialog, null);
 
-        ButterKnife.bind(this, custom);
+        stock = (EditText) custom.findViewById(R.id.dialog_stock);
 
         stock.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

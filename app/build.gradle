@@ -1,6 +1,4 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt'
-apply plugin: 'com.noveogroup.android.check'
 
 repositories {
     maven { url "https://jitpack.io" }
@@ -21,7 +19,6 @@ android {
         release {
             minifyEnabled false
             shrinkResources false
-            proguardFile "proguard-butterknife-8.pro"
             proguardFile "proguard-support-v7-appcompat.pro"
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -29,15 +26,6 @@ android {
 
     lintOptions {
         warning 'InvalidPackage'
-    }
-}
-
-check {
-    checkstyle { config hard() }
-    findbugs { config hard() }
-    pmd {
-        config hard()
-        skip true
     }
 }
 
@@ -52,10 +40,8 @@ dependencies {
     compile 'com.android.support:gridlayout-v7:25.3.1'
     compile 'com.android.support:cardview-v7:25.3.1'
     compile 'com.android.support:support-v4:25.3.1'
-    compile 'com.jakewharton:butterknife:8.4.0'
     compile 'com.yahoofinance-api:YahooFinanceAPI:3.9.0' // see http://financequotes-api.com/
     compile 'com.jakewharton.timber:timber:4.4.0'
     testCompile 'junit:junit:4.12'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
 }

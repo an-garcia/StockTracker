@@ -30,8 +30,6 @@ import com.xengar.android.stocktracker.R;
 import com.xengar.android.stocktracker.data.Contract;
 import com.xengar.android.stocktracker.data.PrefUtils;
 
-import butterknife.ButterKnife;
-
 public class MainActivity extends AppCompatActivity implements StockFragment.Callback {
 
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
@@ -45,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements StockFragment.Cal
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-        ButterKnife.bind(this);
+
 
         if (findViewById(R.id.stock_detail_container) != null) {
             // The detail container view will be present only in the large-screen layouts

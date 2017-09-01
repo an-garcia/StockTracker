@@ -28,8 +28,6 @@ import com.xengar.android.stocktracker.R;
 import com.xengar.android.stocktracker.Utility;
 import com.xengar.android.stocktracker.data.Contract;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
 
@@ -98,18 +96,15 @@ class StockAdapter extends RecyclerView.Adapter<StockAdapter.StockViewHolder> {
 
     class StockViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        @BindView(R.id.symbol)
         TextView symbol;
-
-        @BindView(R.id.price)
         TextView price;
-
-        @BindView(R.id.change)
         TextView change;
 
         StockViewHolder(View itemView) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
+            symbol = (TextView) itemView.findViewById(R.id.symbol);
+            price = (TextView) itemView.findViewById(R.id.price);
+            change = (TextView) itemView.findViewById(R.id.change);
             itemView.setOnClickListener(this);
         }
 
