@@ -14,7 +14,7 @@ Based on [StockHawk](https://github.com/udacity/StockHawk).
 Pre-requisites
 --------------
 - Android SDK 25 or Higher
-- YahooFinanceAPI 3.5.0
+- YahooFinanceAPI 3.9.0
 - MPAndroidChart v3.0.1
 
 
