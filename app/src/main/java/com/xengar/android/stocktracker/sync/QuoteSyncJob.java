@@ -25,6 +25,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 
 import com.xengar.android.stocktracker.R;
 import com.xengar.android.stocktracker.data.Contract;
@@ -39,16 +40,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import timber.log.Timber;
 import yahoofinance.Stock;
 import yahoofinance.YahooFinance;
 import yahoofinance.histquotes.HistoricalQuote;
 import yahoofinance.histquotes.Interval;
 import yahoofinance.quotes.stock.StockQuote;
 
+import static com.xengar.android.stocktracker.Utility.LOG;
+
 
 public final class QuoteSyncJob {
 
+    private static final String TAG = QuoteSyncJob.class.getSimpleName();
     static final int ONE_OFF_ID = 2;
     public static final String ACTION_DATA_UPDATED = "com.xengar.android.stocktracker.ACTION_DATA_UPDATED";
     public static final String ACTION_INVALID_STOCK = "com.xengar.android.stocktracker.ACTION_INVALID_STOCK";
@@ -63,7 +66,9 @@ public final class QuoteSyncJob {
      */
     static void getQuotes(Context context) {
 
-        Timber.d(context.getString(R.string.msg_runnig_sync_job));
+        if (LOG) {
+            Log.d(TAG, context.getString(R.string.msg_runnig_sync_job));
+        }
 
         Calendar from = Calendar.getInstance();
         Calendar to = Calendar.getInstance();
@@ -74,7 +79,9 @@ public final class QuoteSyncJob {
             Set<String> stockCopy = new HashSet<>();
             stockCopy.addAll(stockPref);
             String[] stockArray = stockPref.toArray(new String[stockPref.size()]);
-            Timber.d(stockCopy.toString());
+            if (LOG) {
+                Log.d(TAG, stockCopy.toString());
+            }
 
             if (stockArray.length == 0) {
                 return;
@@ -82,7 +89,9 @@ public final class QuoteSyncJob {
 
             Map<String, Stock> quotes = YahooFinance.get(stockArray);
             Iterator<String> iterator = stockCopy.iterator();
-            Timber.d(quotes.toString());
+            if (LOG) {
+                Log.d(TAG, quotes.toString());
+            }
             ArrayList<ContentValues> quoteCVs = new ArrayList<>();
 
             while (iterator.hasNext()) {
@@ -91,7 +100,9 @@ public final class QuoteSyncJob {
                 Stock stock = quotes.get(symbol);
                 if (stock == null || stock.getName() == null){
                     // This is an invalid stock. Inform it
-                    Timber.d(context.getString(R.string.error_stock_not_found, symbol));
+                    if (LOG) {
+                        Log.e(TAG, context.getString(R.string.error_stock_not_found, symbol));
+                    }
                     Intent stockCheckIntent = new Intent(ACTION_INVALID_STOCK);
                     stockCheckIntent.putExtra(Contract.Quote.COLUMN_SYMBOL, symbol);
                     context.sendBroadcast(stockCheckIntent);
@@ -133,7 +144,9 @@ public final class QuoteSyncJob {
             context.sendBroadcast(dataUpdatedIntent);
 
         } catch (IOException exception) {
-            Timber.e(exception, context.getString(R.string.error_fetching));
+            if (LOG) {
+                Log.e(TAG, context.getString(R.string.error_fetching));
+            }
         }
     }
 
@@ -145,7 +158,9 @@ public final class QuoteSyncJob {
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private static void schedulePeriodic(Context context, long syncPeriod) {
-        Timber.d(context.getString(R.string.msg_scheduling_periodic_task));
+        if (LOG) {
+            Log.d(TAG, context.getString(R.string.msg_scheduling_periodic_task));
+        }
 
         JobInfo.Builder builder = new JobInfo.Builder(PERIODIC_ID, new ComponentName(context, QuoteJobService.class));
         builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY)

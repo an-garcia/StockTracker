@@ -18,10 +18,11 @@ package com.xengar.android.stocktracker.sync;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.content.Intent;
+import android.util.Log;
 
 import com.xengar.android.stocktracker.R;
 
-import timber.log.Timber;
+import static com.xengar.android.stocktracker.Utility.LOG;
 
 /**
  * Lollipop JobScheduler API for schedule a job to take place according to some parameters.
@@ -33,12 +34,16 @@ import timber.log.Timber;
  */
 public class QuoteJobService extends JobService {
 
+    private static final String TAG = QuoteJobService.class.getSimpleName();
+
     /**
      * Called when the JobScheduler decides to run the job based on the parameters.
      */
     @Override
     public boolean onStartJob(JobParameters jobParameters) {
-        Timber.d(getString(R.string.msg_intent_handled));
+        if (LOG) {
+            Log.e(TAG, getString(R.string.msg_intent_handled));
+        }
         Intent nowIntent = new Intent(getApplicationContext(), QuoteIntentService.class);
         getApplicationContext().startService(nowIntent);
         return true;

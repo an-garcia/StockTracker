@@ -30,6 +30,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,8 @@ import com.xengar.android.stocktracker.data.Contract;
 import com.xengar.android.stocktracker.data.PrefUtils;
 import com.xengar.android.stocktracker.sync.QuoteSyncJob;
 
-import timber.log.Timber;
+import static com.xengar.android.stocktracker.Utility.LOG;
+
 
 /**
  * Encapsulates fetching the stocks and displaying it as a
@@ -53,7 +55,7 @@ public class StockFragment extends Fragment implements
         SwipeRefreshLayout.OnRefreshListener,
         StockAdapter.StockAdapterOnClickHandler{
 
-    public static final String LOG_TAG = StockFragment.class.getSimpleName();
+    public static final String TAG = StockFragment.class.getSimpleName();
     private RecyclerView mRecyclerView;
     private int mPosition = RecyclerView.NO_POSITION;
     private Context mContext;
@@ -238,7 +240,9 @@ public class StockFragment extends Fragment implements
             swipeRefreshLayout.setRefreshing(false);
             Toast.makeText(mContext, R.string.toast_no_connectivity, Toast.LENGTH_LONG).show();
         } else if (PrefUtils.getStocks(mContext).size() == 0) {
-            Timber.d(getString(R.string.msg_panic));
+            if (LOG) {
+                Log.d(TAG, getString(R.string.msg_panic));
+            }
             swipeRefreshLayout.setRefreshing(false);
             error.setText(getString(R.string.error_no_stocks));
             error.setVisibility(View.VISIBLE);
@@ -249,7 +253,9 @@ public class StockFragment extends Fragment implements
 
     @Override
     public void onClick(String symbol, StockAdapter.StockViewHolder vh) {
-        Timber.d(getString(R.string.msg_symbol_clicked, symbol));
+        if (LOG) {
+            Log.d(TAG, getString(R.string.msg_symbol_clicked, symbol));
+        }
     }
 
 }

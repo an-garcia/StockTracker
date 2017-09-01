@@ -31,6 +31,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -64,7 +65,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import timber.log.Timber;
+import static com.xengar.android.stocktracker.Utility.LOG;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -74,7 +75,7 @@ public class DetailFragment extends Fragment implements
         OnChartGestureListener,
         OnChartValueSelectedListener {
 
-    private static final String LOG_TAG = DetailFragment.class.getSimpleName();
+    private static final String TAG = DetailFragment.class.getSimpleName();
     static final String DETAIL_URI = "URI";
 
     private static final String STOCK_SHARE_HASHTAG = " #StockTrackerApp";
@@ -376,12 +377,16 @@ public class DetailFragment extends Fragment implements
 
     @Override
     public void onChartGestureStart(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
-        Timber.d("Gesture START, x: " + me.getX() + ", y: " + me.getY());
+        if (LOG) {
+            Log.d(TAG, "Gesture START, x: " + me.getX() + ", y: " + me.getY());
+        }
     }
 
     @Override
     public void onChartGestureEnd(MotionEvent me, ChartTouchListener.ChartGesture lastPerformedGesture) {
-        Timber.d("Gesture END, lastGesture: " + lastPerformedGesture);
+        if (LOG) {
+            Log.d(TAG, "Gesture END, lastGesture: " + lastPerformedGesture);
+        }
 
         // un-highlight values after the gesture is finished and no single-tap
         if(lastPerformedGesture != ChartTouchListener.ChartGesture.SINGLE_TAP)
@@ -390,44 +395,60 @@ public class DetailFragment extends Fragment implements
 
     @Override
     public void onChartLongPressed(MotionEvent me) {
-        Timber.d("Chart longpressed.");
+        if (LOG) {
+            Log.d(TAG, "Chart longpressed.");
+        }
     }
 
     @Override
     public void onChartDoubleTapped(MotionEvent me) {
-        Timber.d("Chart double-tapped.");
+        if (LOG) {
+            Log.d(TAG, "Chart double-tapped.");
+        }
     }
 
     @Override
     public void onChartSingleTapped(MotionEvent me) {
-        Timber.d("Chart single-tapped.");
+        if (LOG) {
+            Log.d(TAG, "Chart single-tapped.");
+        }
     }
 
     @Override
     public void onChartFling(MotionEvent me1, MotionEvent me2, float velocityX, float velocityY) {
-        Timber.d("Chart flinged. VeloX: " + velocityX + ", VeloY: " + velocityY);
+        if (LOG) {
+            Log.d(TAG, "Chart flinged. VeloX: " + velocityX + ", VeloY: " + velocityY);
+        }
     }
 
     @Override
     public void onChartScale(MotionEvent me, float scaleX, float scaleY) {
-        Timber.d("Scale / Zoom: ScaleX: " + scaleX + ", ScaleY: " + scaleY);
+        if (LOG) {
+            Log.d(TAG, "Scale / Zoom: ScaleX: " + scaleX + ", ScaleY: " + scaleY);
+        }
     }
 
     @Override
     public void onChartTranslate(MotionEvent me, float dX, float dY) {
-        Timber.d("Translate / Move:  dX: " + dX + ", dY: " + dY);
+        if (LOG) {
+            Log.d(TAG, "Translate / Move:  dX: " + dX + ", dY: " + dY);
+        }
     }
 
     @Override
     public void onValueSelected(Entry e, Highlight h) {
-        Timber.d("Entry selected " + e.toString());
-        Timber.d("LOWHIGH low: " + mChart.getLowestVisibleX() + ", high: " + mChart.getHighestVisibleX());
-        Timber.d("MIN MAX xmin: " + mChart.getXChartMin() + ", xmax: " + mChart.getXChartMax()
-                + ", ymin: " + mChart.getYChartMin() + ", ymax: " + mChart.getYChartMax());
+        if (LOG) {
+            Log.d(TAG, "Entry selected " + e.toString());
+            Log.d(TAG, "LOWHIGH low: " + mChart.getLowestVisibleX() + ", high: " + mChart.getHighestVisibleX());
+            Log.d(TAG, "MIN MAX xmin: " + mChart.getXChartMin() + ", xmax: " + mChart.getXChartMax()
+                    + ", ymin: " + mChart.getYChartMin() + ", ymax: " + mChart.getYChartMax());
+        }
     }
 
     @Override
     public void onNothingSelected() {
-        Timber.d("Nothing selected.");
+        if (LOG) {
+            Log.d(TAG, "Nothing selected.");
+        }
     }
 }

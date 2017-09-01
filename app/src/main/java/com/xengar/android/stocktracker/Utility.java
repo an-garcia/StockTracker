@@ -84,4 +84,17 @@ public class Utility {
         return dollarFormat.format(rawPrice);
     }
 
+
+    /**
+     * Boolean used to log or not lines
+     * Usage:
+     *      if (LOG) {
+     *           if (condition) Log.i(...);
+     *      }
+     *  When you set LOG to false, the compiler will strip out all code inside such checks
+     * (since it is a static final, it knows at compile time that code is not used.)
+     * http://stackoverflow.com/questions/2446248/remove-all-debug-logging-calls-before-publishing-are-there-tools-to-do-this
+     */
+    public static final boolean LOG = true;
+
 }

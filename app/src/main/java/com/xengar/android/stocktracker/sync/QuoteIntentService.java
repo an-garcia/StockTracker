@@ -17,10 +17,11 @@ package com.xengar.android.stocktracker.sync;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.util.Log;
 
 import com.xengar.android.stocktracker.R;
 
-import timber.log.Timber;
+import static com.xengar.android.stocktracker.Utility.LOG;
 
 
 /**
@@ -30,13 +31,17 @@ import timber.log.Timber;
  */
 public class QuoteIntentService extends IntentService {
 
+    private static final String TAG = QuoteIntentService.class.getSimpleName();
+
     public QuoteIntentService() {
         super(QuoteIntentService.class.getSimpleName());
     }
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        Timber.d(getApplicationContext().getString(R.string.msg_intent_handled));
+        if (LOG) {
+            Log.e(TAG, getApplicationContext().getString(R.string.msg_intent_handled));
+        }
         QuoteSyncJob.getQuotes(getApplicationContext());
     }
 }
