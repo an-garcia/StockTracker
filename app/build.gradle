@@ -39,7 +39,7 @@ dependencies {
     compile 'com.android.support:design:26.1.0'
     compile 'com.android.support:gridlayout-v7:26.1.0'
     compile 'com.android.support:cardview-v7:26.1.0'
-    compile 'com.yahoofinance-api:YahooFinanceAPI:3.9.0' // see http://financequotes-api.com/
+    compile 'com.yahoofinance-api:YahooFinanceAPI:3.12.0' // see http://financequotes-api.com/
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.2'
     testCompile 'junit:junit:4.12'
 }
